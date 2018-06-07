@@ -1,0 +1,62 @@
+﻿@model IEnumerable<WebApplication2.Models.client>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Клиенты</h2>
+@using (Html.BeginForm("Index", "clients", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        <div class="col-md-10">
+            <label for="query">
+                <input type="text" name="search" class="form-control" />
+            </label>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-10">
+            <input type="submit" value="Search" class="btn btn-default" />
+        </div>
+    </div>
+}
+
+
+<p>
+    @Html.ActionLink("Добавить", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("ФИО")
+        </th>
+        <th>
+            @Html.DisplayName("Автомобиль")
+        </th>
+        <th>
+            @Html.DisplayName("Телефон")
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.FIO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.car)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.phone)
+        </td>
+        <td>
+            @Html.ActionLink("Редакировать", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Подробнее", "Details", new { id=item.id }) |
+            @Html.ActionLink("Удалить", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

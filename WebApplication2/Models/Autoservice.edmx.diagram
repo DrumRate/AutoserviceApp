@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="af4e98c47fc44bf681a3e5c388e6170d" Name="Diagram1">
+        <EntityTypeShape EntityType="autoservice1Model.car" Width="1.5" PointX="3" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="autoservice1Model.client" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="autoservice1Model.detail" Width="1.5" PointX="10.125" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="autoservice1Model.detail_list" Width="1.5" PointX="8.25" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="autoservice1Model.employment" Width="1.5" PointX="3.875" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="autoservice1Model.executor" Width="1.5" PointX="7.25" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="autoservice1Model.protocol" Width="1.5" PointX="3.25" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="autoservice1Model.work" Width="1.5" PointX="5.25" PointY="3.375" IsExpanded="true" />
+        <AssociationConnector Association="autoservice1Model.car_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="autoservice1Model.work_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="autoservice1Model.detail_list_ibfk_2" ManuallyRouted="false" />
+        <AssociationConnector Association="autoservice1Model.detail_list_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="autoservice1Model.employment_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="autoservice1Model.employment_ibfk_2" ManuallyRouted="false" />
+        <AssociationConnector Association="autoservice1Model.work_ibfk_2" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

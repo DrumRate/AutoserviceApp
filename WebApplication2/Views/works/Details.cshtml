@@ -1,0 +1,50 @@
+﻿@model WebApplication2.Models.work
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>work</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.desc_work)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.desc_work)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.value)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.value)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.car.state_num)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.car.state_num)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.protocol.act_delivering)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.protocol.act_delivering)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

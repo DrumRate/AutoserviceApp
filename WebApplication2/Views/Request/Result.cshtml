@@ -1,0 +1,49 @@
+﻿@model IEnumerable<WebApplication2.ResponseDate.Requests>
+
+@{
+    ViewBag.Title = "Search results";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<table class="table table-bordered table-hover">
+    <tr>
+        <th>
+            Гос. номер
+        </th>
+        <th>
+            Марка
+        </th>
+        <th>
+            Модель
+        </th>
+        <th>
+            Описание
+        </th>
+        <th>
+            Цена
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @item.state_num
+        </td>
+        <td>
+            @item.mark
+        </td>
+        <td>
+            @item.model
+        </td>
+        <td>
+            @item.desc_work
+        </td>
+        <td>
+            @item.value
+        </td>
+    </tr>
+    }
+</table>
+

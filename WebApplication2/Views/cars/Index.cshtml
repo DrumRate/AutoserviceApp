@@ -1,0 +1,74 @@
+﻿@model IEnumerable<WebApplication2.Models.car>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Машины</h2>
+@using (Html.BeginForm("Index", "cars", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        <div class="col-md-10">
+            <label for="query">
+                <input type="text" name="search" class="form-control" />
+            </label>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-10">
+            <input type="submit" value="Search" class="btn btn-default" />
+        </div>
+    </div>
+}
+
+
+<p>
+    @Html.ActionLink("Добавить", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Государственный номер")
+        </th>
+        <th>
+            @Html.DisplayName("Марка")
+        </th>
+        <th>
+            @Html.DisplayName("Модель")
+        </th>
+        <th>
+            @Html.DisplayName("Цвет")
+        </th>
+        <th>
+            @Html.DisplayName("ФИО")
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.state_num)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.mark)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.model)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.color)
+        </td>
+        <td>
+            @Html.ActionLink(Html.DisplayFor(modelItem => item.client.FIO).ToString(), "Details", "clients", new { id = item.id_client }, null)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

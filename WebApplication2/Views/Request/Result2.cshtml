@@ -1,0 +1,32 @@
+﻿
+@model IEnumerable<WebApplication2.ResponseDate.Request2>
+
+@{
+    ViewBag.Title = "Search results";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<table class="table table-bordered table-hover">
+    <tr>
+        <th>
+            ФИО
+        </th>
+        <th>
+            Должность
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.FIO
+            </td>
+            <td>
+                @item.job_position
+            </td>
+        </tr>
+    }
+</table>
+

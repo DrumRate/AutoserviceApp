@@ -1,0 +1,555 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище autoservice1Model" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="car">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="state_num" Type="varchar" MaxLength="10" />
+          <Property Name="mark" Type="varchar" MaxLength="40" />
+          <Property Name="model" Type="varchar" MaxLength="40" />
+          <Property Name="color" Type="varchar" MaxLength="40" />
+          <Property Name="id_client" Type="int" />
+        </EntityType>
+        <EntityType Name="client">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FIO" Type="varchar" MaxLength="30" />
+          <Property Name="car" Type="varchar" MaxLength="30" />
+          <Property Name="phone" Type="varchar" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="detail">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="text" />
+          <Property Name="price" Type="int" />
+          <Property Name="date_manufactured" Type="date" />
+          <Property Name="manufactured" Type="text" />
+        </EntityType>
+        <EntityType Name="detail_list">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_work" Type="int" />
+          <Property Name="id_detail" Type="int" />
+        </EntityType>
+        <EntityType Name="employment">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_work" Type="int" />
+          <Property Name="id_executor" Type="int" />
+        </EntityType>
+        <EntityType Name="executor">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FIO" Type="varchar" MaxLength="100" />
+          <Property Name="job_position" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="protocol">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="date" Type="date" Nullable="false" />
+          <Property Name="act_delivering" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="remarks" Type="text" Nullable="false" />
+        </EntityType>
+        <EntityType Name="work">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_car" Type="int" />
+          <Property Name="desc_work" Type="varchar" MaxLength="100" />
+          <Property Name="value" Type="decimal" Precision="10" Scale="0" />
+          <Property Name="id_protocol" Type="int" />
+        </EntityType>
+        <Association Name="car_ibfk_1">
+          <End Role="client" Type="Self.client" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="car" Type="Self.car" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="client">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="car">
+              <PropertyRef Name="id_client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="detail_list_ibfk_1">
+          <End Role="work" Type="Self.work" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="detail_list" Type="Self.detail_list" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="work">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="detail_list">
+              <PropertyRef Name="id_work" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="detail_list_ibfk_2">
+          <End Role="detail" Type="Self.detail" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="detail_list" Type="Self.detail_list" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="detail">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="detail_list">
+              <PropertyRef Name="id_detail" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="employment_ibfk_1">
+          <End Role="work" Type="Self.work" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="employment" Type="Self.employment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="work">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="employment">
+              <PropertyRef Name="id_work" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="employment_ibfk_2">
+          <End Role="executor" Type="Self.executor" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="employment" Type="Self.employment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="executor">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="employment">
+              <PropertyRef Name="id_executor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="work_ibfk_1">
+          <End Role="car" Type="Self.car" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="work" Type="Self.work" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="car">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="work">
+              <PropertyRef Name="id_car" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="work_ibfk_2">
+          <End Role="protocol" Type="Self.protocol" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="work" Type="Self.work" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="protocol">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="work">
+              <PropertyRef Name="id_protocol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище autoservice1ModelContainer">
+          <EntitySet Name="car" EntityType="Self.car" Schema="autoservice1" store:Type="Tables" />
+          <EntitySet Name="client" EntityType="Self.client" Schema="autoservice1" store:Type="Tables" />
+          <EntitySet Name="detail" EntityType="Self.detail" Schema="autoservice1" store:Type="Tables" />
+          <EntitySet Name="detail_list" EntityType="Self.detail_list" Schema="autoservice1" store:Type="Tables" />
+          <EntitySet Name="employment" EntityType="Self.employment" Schema="autoservice1" store:Type="Tables" />
+          <EntitySet Name="executor" EntityType="Self.executor" Schema="autoservice1" store:Type="Tables" />
+          <EntitySet Name="protocol" EntityType="Self.protocol" Schema="autoservice1" store:Type="Tables" />
+          <EntitySet Name="work" EntityType="Self.work" Schema="autoservice1" store:Type="Tables" />
+          <AssociationSet Name="car_ibfk_1" Association="Self.car_ibfk_1">
+            <End Role="client" EntitySet="client" />
+            <End Role="car" EntitySet="car" />
+          </AssociationSet>
+          <AssociationSet Name="detail_list_ibfk_1" Association="Self.detail_list_ibfk_1">
+            <End Role="work" EntitySet="work" />
+            <End Role="detail_list" EntitySet="detail_list" />
+          </AssociationSet>
+          <AssociationSet Name="detail_list_ibfk_2" Association="Self.detail_list_ibfk_2">
+            <End Role="detail" EntitySet="detail" />
+            <End Role="detail_list" EntitySet="detail_list" />
+          </AssociationSet>
+          <AssociationSet Name="employment_ibfk_1" Association="Self.employment_ibfk_1">
+            <End Role="work" EntitySet="work" />
+            <End Role="employment" EntitySet="employment" />
+          </AssociationSet>
+          <AssociationSet Name="employment_ibfk_2" Association="Self.employment_ibfk_2">
+            <End Role="executor" EntitySet="executor" />
+            <End Role="employment" EntitySet="employment" />
+          </AssociationSet>
+          <AssociationSet Name="work_ibfk_1" Association="Self.work_ibfk_1">
+            <End Role="car" EntitySet="car" />
+            <End Role="work" EntitySet="work" />
+          </AssociationSet>
+          <AssociationSet Name="work_ibfk_2" Association="Self.work_ibfk_2">
+            <End Role="protocol" EntitySet="protocol" />
+            <End Role="work" EntitySet="work" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="autoservice1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="car">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="state_num" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="mark" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="model" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="color" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="id_client" Type="Int32" />
+          <NavigationProperty Name="client" Relationship="Self.car_ibfk_1" FromRole="car" ToRole="client" />
+          <NavigationProperty Name="work" Relationship="Self.work_ibfk_1" FromRole="car" ToRole="work" />
+        </EntityType>
+        <EntityType Name="client">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FIO" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="car" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="car1" Relationship="Self.car_ibfk_1" FromRole="client" ToRole="car" />
+        </EntityType>
+        <EntityType Name="detail">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="price" Type="Int32" />
+          <Property Name="date_manufactured" Type="DateTime" />
+          <Property Name="manufactured" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="detail_list" Relationship="Self.detail_list_ibfk_2" FromRole="detail" ToRole="detail_list" />
+        </EntityType>
+        <EntityType Name="detail_list">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_work" Type="Int32" />
+          <Property Name="id_detail" Type="Int32" />
+          <NavigationProperty Name="detail" Relationship="Self.detail_list_ibfk_2" FromRole="detail_list" ToRole="detail" />
+          <NavigationProperty Name="work" Relationship="Self.detail_list_ibfk_1" FromRole="detail_list" ToRole="work" />
+        </EntityType>
+        <EntityType Name="employment">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_work" Type="Int32" />
+          <Property Name="id_executor" Type="Int32" />
+          <NavigationProperty Name="work" Relationship="Self.employment_ibfk_1" FromRole="employment" ToRole="work" />
+          <NavigationProperty Name="executor" Relationship="Self.employment_ibfk_2" FromRole="employment" ToRole="executor" />
+        </EntityType>
+        <EntityType Name="executor">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FIO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="job_position" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="employment" Relationship="Self.employment_ibfk_2" FromRole="executor" ToRole="employment" />
+        </EntityType>
+        <EntityType Name="protocol">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="date" Type="DateTime" Nullable="false" />
+          <Property Name="act_delivering" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="remarks" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="work" Relationship="Self.work_ibfk_2" FromRole="protocol" ToRole="work" />
+        </EntityType>
+        <EntityType Name="work">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_car" Type="Int32" />
+          <Property Name="desc_work" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="value" Type="Decimal" />
+          <Property Name="id_protocol" Type="Int32" />
+          <NavigationProperty Name="car" Relationship="Self.work_ibfk_1" FromRole="work" ToRole="car" />
+          <NavigationProperty Name="detail_list" Relationship="Self.detail_list_ibfk_1" FromRole="work" ToRole="detail_list" />
+          <NavigationProperty Name="employment" Relationship="Self.employment_ibfk_1" FromRole="work" ToRole="employment" />
+          <NavigationProperty Name="protocol" Relationship="Self.work_ibfk_2" FromRole="work" ToRole="protocol" />
+        </EntityType>
+        <Association Name="car_ibfk_1">
+          <End Role="client" Type="Self.client" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="car" Type="Self.car" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="client">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="car">
+              <PropertyRef Name="id_client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="work_ibfk_1">
+          <End Role="car" Type="Self.car" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="work" Type="Self.work" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="car">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="work">
+              <PropertyRef Name="id_car" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="detail_list_ibfk_2">
+          <End Role="detail" Type="Self.detail" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="detail_list" Type="Self.detail_list" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="detail">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="detail_list">
+              <PropertyRef Name="id_detail" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="detail_list_ibfk_1">
+          <End Role="work" Type="Self.work" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="detail_list" Type="Self.detail_list" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="work">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="detail_list">
+              <PropertyRef Name="id_work" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="employment_ibfk_1">
+          <End Role="work" Type="Self.work" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="employment" Type="Self.employment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="work">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="employment">
+              <PropertyRef Name="id_work" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="employment_ibfk_2">
+          <End Role="executor" Type="Self.executor" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="employment" Type="Self.employment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="executor">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="employment">
+              <PropertyRef Name="id_executor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="work_ibfk_2">
+          <End Role="protocol" Type="Self.protocol" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="work" Type="Self.work" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="protocol">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="work">
+              <PropertyRef Name="id_protocol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="autoservice1Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="car" EntityType="Self.car" />
+          <EntitySet Name="client" EntityType="Self.client" />
+          <EntitySet Name="detail" EntityType="Self.detail" />
+          <EntitySet Name="detail_list" EntityType="Self.detail_list" />
+          <EntitySet Name="employment" EntityType="Self.employment" />
+          <EntitySet Name="executor" EntityType="Self.executor" />
+          <EntitySet Name="protocol" EntityType="Self.protocol" />
+          <EntitySet Name="work" EntityType="Self.work" />
+          <AssociationSet Name="car_ibfk_1" Association="Self.car_ibfk_1">
+            <End Role="client" EntitySet="client" />
+            <End Role="car" EntitySet="car" />
+          </AssociationSet>
+          <AssociationSet Name="work_ibfk_1" Association="Self.work_ibfk_1">
+            <End Role="car" EntitySet="car" />
+            <End Role="work" EntitySet="work" />
+          </AssociationSet>
+          <AssociationSet Name="detail_list_ibfk_2" Association="Self.detail_list_ibfk_2">
+            <End Role="detail" EntitySet="detail" />
+            <End Role="detail_list" EntitySet="detail_list" />
+          </AssociationSet>
+          <AssociationSet Name="detail_list_ibfk_1" Association="Self.detail_list_ibfk_1">
+            <End Role="work" EntitySet="work" />
+            <End Role="detail_list" EntitySet="detail_list" />
+          </AssociationSet>
+          <AssociationSet Name="employment_ibfk_1" Association="Self.employment_ibfk_1">
+            <End Role="work" EntitySet="work" />
+            <End Role="employment" EntitySet="employment" />
+          </AssociationSet>
+          <AssociationSet Name="employment_ibfk_2" Association="Self.employment_ibfk_2">
+            <End Role="executor" EntitySet="executor" />
+            <End Role="employment" EntitySet="employment" />
+          </AssociationSet>
+          <AssociationSet Name="work_ibfk_2" Association="Self.work_ibfk_2">
+            <End Role="protocol" EntitySet="protocol" />
+            <End Role="work" EntitySet="work" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище autoservice1ModelContainer" CdmEntityContainer="autoservice1Entities">
+          <EntitySetMapping Name="car">
+            <EntityTypeMapping TypeName="autoservice1Model.car">
+              <MappingFragment StoreEntitySet="car">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="state_num" ColumnName="state_num" />
+                <ScalarProperty Name="mark" ColumnName="mark" />
+                <ScalarProperty Name="model" ColumnName="model" />
+                <ScalarProperty Name="color" ColumnName="color" />
+                <ScalarProperty Name="id_client" ColumnName="id_client" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="client">
+            <EntityTypeMapping TypeName="autoservice1Model.client">
+              <MappingFragment StoreEntitySet="client">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="FIO" ColumnName="FIO" />
+                <ScalarProperty Name="car" ColumnName="car" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="detail">
+            <EntityTypeMapping TypeName="autoservice1Model.detail">
+              <MappingFragment StoreEntitySet="detail">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="date_manufactured" ColumnName="date_manufactured" />
+                <ScalarProperty Name="manufactured" ColumnName="manufactured" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="detail_list">
+            <EntityTypeMapping TypeName="autoservice1Model.detail_list">
+              <MappingFragment StoreEntitySet="detail_list">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_work" ColumnName="id_work" />
+                <ScalarProperty Name="id_detail" ColumnName="id_detail" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="employment">
+            <EntityTypeMapping TypeName="autoservice1Model.employment">
+              <MappingFragment StoreEntitySet="employment">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_work" ColumnName="id_work" />
+                <ScalarProperty Name="id_executor" ColumnName="id_executor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="executor">
+            <EntityTypeMapping TypeName="autoservice1Model.executor">
+              <MappingFragment StoreEntitySet="executor">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="FIO" ColumnName="FIO" />
+                <ScalarProperty Name="job_position" ColumnName="job_position" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="protocol">
+            <EntityTypeMapping TypeName="autoservice1Model.protocol">
+              <MappingFragment StoreEntitySet="protocol">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="act_delivering" ColumnName="act_delivering" />
+                <ScalarProperty Name="remarks" ColumnName="remarks" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="work">
+            <EntityTypeMapping TypeName="autoservice1Model.work">
+              <MappingFragment StoreEntitySet="work">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_car" ColumnName="id_car" />
+                <ScalarProperty Name="desc_work" ColumnName="desc_work" />
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="id_protocol" ColumnName="id_protocol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

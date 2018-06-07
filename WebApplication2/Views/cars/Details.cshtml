@@ -1,0 +1,58 @@
+﻿@model WebApplication2.Models.car
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>car</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.state_num)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.state_num)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.mark)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.mark)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.model)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.model)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.color)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.color)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.client.FIO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.client.FIO)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

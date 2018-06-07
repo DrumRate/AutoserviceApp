@@ -1,0 +1,100 @@
+﻿@model dynamic
+@{
+    ViewBag.Title = "Запросы";
+}
+@using (Html.BeginForm("Request1", "Request", FormMethod.Post))
+{
+    <h3>Запрос 1</h3>
+    <p>Вывести по гос.номеру машины ее марку, модель, описание работы, которая была совершена и цену</p>
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        <div class="col-md-10">
+            <input type="text" class="form-control" id="search" name="search" />
+            <input type="submit" value=Найти class="btn btn-default" />
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        <div class="col-md-10">
+
+        </div>
+    </div>
+}
+<br>
+<hr />
+
+@using (Html.BeginForm("Request2", "Request", FormMethod.Post))
+{
+    <h3>Запрос 2</h3>
+    <p>Вывести ФИО и должность сотрудника, который обслуживал клиента</p>
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        <div class="col-md-10">
+            <input type="text" class="form-control" id="search" name="search" />
+            <input type="submit" value="Найти" class="btn btn-default" />
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        <div class="col-md-10">
+
+        </div>
+    </div>
+}
+<br>
+<hr />
+@using (Html.BeginForm("Request3", "Request", FormMethod.Post))
+{
+    <h3>Запрос 3</h3>
+    <p>Вывести ФИО и телефон клиента, на автомобиль которого была поставлена деталь от производителя</p>
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        <div class="col-md-10">
+            <input type="text" class="form-control" id="search" name="search" />
+            <input type="submit" value="Найти" class="btn btn-default" />
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        <div class="col-md-10">
+
+        </div>
+    </div>
+}
+<br>
+<hr />
+@using (Html.BeginForm("Request4", "Request", FormMethod.Post))
+{
+    <h3>Запрос 4</h3>
+    <p>Вывести ФИО клиента, его марку и модель автомобиля, в которых было заменено<input type="text" class="form-control" id="search" name="search"> деталей </p>
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        <div class="col-md-10">
+            <input type="submit" value="Найти" class="btn btn-default" />
+        </div>
+    </div>
+}
+<br>
+<hr />
+@using (Html.BeginForm("Request5", "Request", FormMethod.Post))
+{
+    <h3>Запрос 4</h3>
+    <p>Вывести автомобили, которые обслуживались в срок: </p>
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <div class="form-group">
+            <div class="col-md-10">
+                <input type="date" class="form-control" id="date_first" name="date_first" />
+                <input type="date" class="form-control" id="date_second" name="date_second" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-10">
+                <input type="submit" value="Найти" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+
